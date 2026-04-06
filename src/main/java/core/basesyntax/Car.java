@@ -7,27 +7,13 @@ import java.util.Objects;
 /**
  * Make this class immutable. See requirements in task description.
  */
-public final class Car implements Cloneable{
+public final class Car implements Cloneable {
     private final int year;
     private final String color;
     private final List<Wheel> wheels;
     private final Engine engine;
 
     //implement this class
-    public Car changeEngine(Engine engine) {
-        return new Car(this.year, this.color, this.wheels, engine);
-    }
-
-    public Car changeColor(String newColor) {
-        return new Car(this.year, newColor, this.wheels, this.engine);
-    }
-
-    public Car addWheel(Wheel newWheel) {
-        List<Wheel> newWheels = new ArrayList<>(wheels);
-        newWheels.add(newWheel);
-        return new Car(this.year, this.color, newWheels, this.engine);
-    }
-
     public Car(int year, String color, List<Wheel> wheels, Engine engine) {
         this.year = year;
         this.color = color;
@@ -51,6 +37,20 @@ public final class Car implements Cloneable{
         return engine == null ? null : engine.clone();
     }
 
+    public Car changeEngine(Engine engine) {
+        return new Car(this.year, this.color, this.wheels, engine);
+    }
+
+    public Car changeColor(String newColor) {
+        return new Car(this.year, newColor, this.wheels, this.engine);
+    }
+
+    public Car addWheel(Wheel newWheel) {
+        List<Wheel> newWheels = new ArrayList<>(wheels);
+        newWheels.add(newWheel);
+        return new Car(this.year, this.color, newWheels, this.engine);
+    }
+
     @Override
     public Car clone() {
         try {
@@ -62,7 +62,9 @@ public final class Car implements Cloneable{
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Car car = (Car) o;
         return year == car.year
                 && Objects.equals(color, car.color)
